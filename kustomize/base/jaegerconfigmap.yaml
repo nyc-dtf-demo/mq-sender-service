@@ -1,5 +1,5 @@
 ---
-# Source: mq-spring-app/templates/jaegerconfigmap.yaml
+# Source: mq-sender-service/templates/jaegerconfigmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:

@@ -1,15 +1,15 @@
 ---
-# Source: mq-spring-app/templates/route.yaml
+# Source: mq-sender-service/templates/route.yaml
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: mq-spring-app
+  name: mq-sender-service
   annotations:
     argocd.argoproj.io/sync-options: Validate=false
 spec:
   to:
     kind: Service
-    name: mq-spring-app
+    name: mq-sender-service
     weight: 100
   tls:
     termination: edge

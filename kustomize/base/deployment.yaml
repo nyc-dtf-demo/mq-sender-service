@@ -1,35 +1,35 @@
 ---
-# Source: mq-spring-app/templates/deployment.yaml
+# Source: mq-sender-service/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mq-spring-app
+  name: mq-sender-service
   annotations:
     app.openshift.io/vcs-ref: 9363c7d02f9f98c4715b254a9ae8d5b6e1df5241
-    app.openshift.io/vcs-uri: https://github.com/GitOps-MQ-12042022/mq-spring-app
+    app.openshift.io/vcs-uri: https://github.com/GitOps-MQ-12042022/mq-sender-service
   labels:
-    app.kubernetes.io/name: mq-spring-app
-    helm.sh/chart: mq-spring-app-1.0.0-rc0.0.2
-    app.kubernetes.io/instance: mq-spring-app
-    app: mq-spring-app
+    app.kubernetes.io/name: mq-sender-service
+    helm.sh/chart: mq-sender-service-1.0.0-rc0.0.2
+    app.kubernetes.io/instance: mq-sender-service
+    app: mq-sender-service
     app.kubernetes.io/part-of: inventory
     app.openshift.io/runtime: spring
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: mq-spring-app
-      app.kubernetes.io/instance: mq-spring-app
+      app.kubernetes.io/name: mq-sender-service
+      app.kubernetes.io/instance: mq-sender-service
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: mq-spring-app
-        app.kubernetes.io/instance: mq-spring-app
+        app.kubernetes.io/name: mq-sender-service
+        app.kubernetes.io/instance: mq-sender-service
     spec:
-      serviceAccountName: mq-spring-app
+      serviceAccountName: mq-sender-service
       volumes:
       containers:
-        - name: mq-spring-app
+        - name: mq-sender-service
           image: "replace"
           imagePullPolicy: IfNotPresent
           volumeMounts:
@@ -66,27 +66,27 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   key: QM
-                  name: mq-spring-app
+                  name: mq-sender-service
             - name: CHANNEL
               valueFrom:
                 configMapKeyRef:
                   key: CHANNEL
-                  name: mq-spring-app
+                  name: mq-sender-service
             - name: CONNECTION_NAME
               valueFrom:
                 configMapKeyRef:
                   key: CONNECTION_NAME
-                  name: mq-spring-app
+                  name: mq-sender-service
             - name: QUEUE_NAME
               valueFrom:
                 configMapKeyRef:
                   key: QUEUE_NAME
-                  name: mq-spring-app
+                  name: mq-sender-service
             - name: APP_NAME
               valueFrom:
                 configMapKeyRef:
                   key: APP_NAME
-                  name: mq-spring-app
+                  name: mq-sender-service
             - name: OPENTRACING_JAEGER_ENABLED
               value: "false"
           envFrom:

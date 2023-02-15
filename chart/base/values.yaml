@@ -2,7 +2,7 @@
 # Declare variables to be passed into your templates.
 global: {}
 
-name: mq-spring-app
+name: mq-sender-service
 
 replicaCount: 1
 logLevel: "info"
@@ -58,7 +58,7 @@ configmap:
   CONNECTION_NAME: qm1-ibm-mq.dev.svc.cluster.local(1414)
   QM: QM1
   QUEUE_NAME: IBM.DEMO.Q
-  APP_NAME: MQ-SPRING-APP
+  APP_NAME: mq-sender-service
 
 ccdt:
   enabled: false
@@ -67,7 +67,7 @@ ccdt:
   CCDT_URL: file:///ccdt/ccdt.json
   volumeName: ccdt
   volumeMountPath: "/ccdt"
-  configMapName: mq-spring-app-ccdt
+  configMapName: mq-sender-service-ccdt
 
 
 sealedsecret:

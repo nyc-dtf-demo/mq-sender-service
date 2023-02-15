@@ -74,7 +74,7 @@ Create chart name and version as used by the chart label.
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "mq-spring-app.name" -}}
+{{- define "mq-sender-service.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -83,7 +83,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "mq-spring-app.fullname" -}}
+{{- define "mq-sender-service.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -99,16 +99,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "mq-spring-app.chart" -}}
+{{- define "mq-sender-service.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "mq-spring-app.labels" -}}
-helm.sh/chart: {{ include "mq-spring-app.chart" . }}
-{{ include "mq-spring-app.selectorLabels" . }}
+{{- define "mq-sender-service.labels" -}}
+helm.sh/chart: {{ include "mq-sender-service.chart" . }}
+{{ include "mq-sender-service.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -118,17 +118,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "mq-spring-app.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "mq-spring-app.name" . }}
+{{- define "mq-sender-service.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "mq-sender-service.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "mq-spring-app.serviceAccountName" -}}
+{{- define "mq-sender-service.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "mq-spring-app.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "mq-sender-service.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}

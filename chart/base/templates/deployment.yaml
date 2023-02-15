@@ -117,39 +117,39 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   key: QM
-                  name: {{ include "mq-spring-app.fullname" . }}
+                  name: {{ include "mq-sender-service.fullname" . }}
             - name: CHANNEL
               valueFrom:
                 configMapKeyRef:
                   key: CHANNEL
-                  name: {{ include "mq-spring-app.fullname" . }}
+                  name: {{ include "mq-sender-service.fullname" . }}
             - name: CONNECTION_NAME
               valueFrom:
                 configMapKeyRef:
                   key: CONNECTION_NAME
-                  name: {{ include "mq-spring-app.fullname" . }}
+                  name: {{ include "mq-sender-service.fullname" . }}
             {{- if eq .Values.security true }}
             - name: USER
               valueFrom:
                 secretKeyRef:
                   key: USER
-                  name: {{ include "mq-spring-app.fullname" . }}
+                  name: {{ include "mq-sender-service.fullname" . }}
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: PASSWORD
-                  name: {{ include "mq-spring-app.fullname" . }}
+                  name: {{ include "mq-sender-service.fullname" . }}
             {{- end }}
             - name: QUEUE_NAME
               valueFrom:
                 configMapKeyRef:
                   key: QUEUE_NAME
-                  name: {{ include "mq-spring-app.fullname" . }}
+                  name: {{ include "mq-sender-service.fullname" . }}
             - name: APP_NAME
               valueFrom:
                 configMapKeyRef:
                   key: APP_NAME
-                  name: {{ include "mq-spring-app.fullname" . }}
+                  name: {{ include "mq-sender-service.fullname" . }}
             - name: OPENTRACING_JAEGER_ENABLED
               value: {{ .Values.jaeger.enabled | quote }}
           envFrom:
