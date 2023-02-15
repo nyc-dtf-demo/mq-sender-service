@@ -1,81 +1,34 @@
+
 spring:
   application:
-    name: "${IMAGE_NAME:mq-spring-app}"
-  mvc:
-    log-request-details: true    
+    name: mq_sender_service
 
-opentracing:
-  jaeger:
-    enabled: false
-    enable-b3-propagation: true
-    enable128-bit-traces: true
-    log-spans: true
-    http-sender:
-      url: ${JAEGER_ENDPOINT:localhost:9411/api/traces}
-    
 ibm:
   mq:
-    queue-manager: ${QM:QM1}
-    channel: ${CHANNEL:DEV.ADMIN.SVRCONN}
-    conn-name: ${CONNECTION_NAME:localhost(1414)}
-    user: ${USER}
-    password: ${PASSWORD}
-    application-name: ${APP_NAME:springboot-app}
-
-app:
-  keystore: ${CLIENT_SSL_KEY_STORE:default}
-  keystore-pw: ${KEY_STORE_PASSWORD:passw0rd}
-  truststore: ${CLIENT_SSL_TRUST_STORE:default}
-  truststore-pw: ${KEY_STORE_PASSWORD:passw0rd}
-  mq:
-   queue-name: ${QUEUE_NAME:DEVGK}    
-
-swagger:
-  baseApiPackage: "com.ibm.mqclient"
-  title: "${IMAGE_NAME:mq-spring-app}"
-  description: "Spring Boot client application that exposes REST api's to put and get messages onto an MQ queue.'"
-  version: "1.0.0"
-  termsOfServiceUrl: ""
-  contact: 
-    name: "Gerry Kovan" 
-    url: ""
-    email: "gkovan@us.ibm.com"
-
-  license: "MIT"
-  licenseUrl: ""
+    queueManager: QM1
+    channel: DEV.ADMIN.SVRCONN
+    connName: localhost(1414)
+    user: admin
+    password: passw0rd
+    queueName: DEV.QUEUE.1
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
-  endpoint:
-    health:
-      probes:
-        enabled: true
-      show-details: "ALWAYS"
-      group:
-        readiness:
-          include: "readinessState, jms"
-        liveness:
-          include: "livenessState, ping"
-  health:
-    livenessstate:
-      enabled: true
-    readinessstate:
-      enabled: true
+        include: '*'
 
-server:
-  port: ${PORT:8080}
+---
+spring:
+  config:
+    activate:
+      on-profile: cloud
 
-logging:
-  level:
-    ROOT: ${LOG_LEVEL:INFO}
-    com.ibm.cloud_garage: INFO
-    com.ibm.mqclient: DEBUG
-    org.springframework: ERROR
-    org.springframework.web: WARN
-    org.springframework.web.filter.CommonsRequestLoggingFilter: INFO
-    ch.qos.logback.classic: ERROR
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%X] %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex"
+ibm:
+  mq:
+    queueManager: QM1
+    channel: DEV.ADMIN.SVRCONN
+    connName: localhost(1414)
+    user: admin
+    password: passw0rd
+    queueName: DEV.QUEUE.1
